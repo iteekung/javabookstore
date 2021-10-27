@@ -8,6 +8,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Date;
 
@@ -18,13 +20,19 @@ public class BookstoreApplication {
 		SpringApplication.run(BookstoreApplication.class, args);
 	}
 
+	@Bean
+	PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
 
 	@Bean
 	CommandLineRunner run(UserService userService, BookService bookService) {
 		return args-> {
 
 //			userService.saveUser(new User("Kachi", "Malaka", "Kachi", "1234", new Date(80,1,11)));
-//
+//			userService.saveUser(new User("foo", "bar", "foobar", "1234", new Date(91,1,14)));
+
 //			bookService.saveBook(new Book("Before We Were Yours: A Novel", "Lisa Wingate", 340.0, false));
 //			bookService.saveBook(new Book("When Never Comes", "Barbara Davis", 179.0, false));
 //			bookService.saveBook(new Book("Giraffes Can't Dance", "Giles Andreae, Guy Parker-Rees", 200.5, false));
