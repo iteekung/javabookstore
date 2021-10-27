@@ -48,6 +48,7 @@ public class UserController {
     public ResponseEntity<String> deleteUser(UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken) {
         User user = userService.getUser((String) usernamePasswordAuthenticationToken.getPrincipal());
         log.info("username: {} ", user.getUsername());
+        user.getDataBooks().removeAll(user.getDataBooks());
         userService.deleteUser(user);
         return ResponseEntity.ok().build();
     }

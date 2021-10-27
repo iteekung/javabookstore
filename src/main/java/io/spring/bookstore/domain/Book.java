@@ -23,12 +23,16 @@ public class Book {
     @JsonIgnoreProperties("dataBooks")
     private List<User> dataUsers = new ArrayList<>();
 
-//    public Book(String name, String author, double price, boolean isRecommended) {
-//        this.setName(name);
-//        this.setAuthor(author);
-//        this.setPrice(price);
-//        this.setIsRecommended(isRecommended);
-//    }
+    public Book(String name, String author, double price, boolean isRecommended) {
+        this.setName(name);
+        this.setAuthor(author);
+        this.setPrice(price);
+        this.setIsRecommended(isRecommended);
+    }
+
+    public Book() {
+
+    }
 
     public Map bookInfo() {
         Map<String, String> map = new HashMap<>();

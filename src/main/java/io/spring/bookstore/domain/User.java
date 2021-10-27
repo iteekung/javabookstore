@@ -24,13 +24,17 @@ public class User {
     @JsonIgnoreProperties("dataUsers")
     private List<Book> dataBooks = new ArrayList<>();
 
-//    public User(String name, String sname, String username, String password, Date date) {
-//        this.setName(name);
-//        this.setSurname(sname);
-//        this.setUsername(username);
-//        this.setPassword(password);
-//        this.getDate_of_birth(date);
-//    }
+    public User(String name, String sname, String username, String password, Date date) {
+        this.setName(name);
+        this.setSurname(sname);
+        this.setUsername(username);
+        this.setPassword(password);
+        this.setDate_of_birth(date);
+    }
+
+    public User() {
+
+    }
 
     public Double orderBookSumPrice() {
         return this.getDataBooks().stream().map(x -> x.getPrice()).reduce(0.0, (a, b) -> a + b);
