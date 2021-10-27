@@ -5,7 +5,9 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity @Data
 public class Book {
@@ -27,4 +29,14 @@ public class Book {
 //        this.setPrice(price);
 //        this.setIsRecommended(isRecommended);
 //    }
+
+    public Map bookInfo() {
+        Map<String, String> map = new HashMap<>();
+        map.put("id", this.getId().toString());
+        map.put("name", this.getName());
+        map.put("author", this.getAuthor());
+        map.put("price", this.getPrice().toString());
+        map.put("is_recommended", this.getIsRecommended().toString());
+        return map;
+    }
 }

@@ -24,22 +24,17 @@ public class UserController {
     @GetMapping("/users")
     public ResponseEntity<Map> getUser(UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken) {
         User user = userService.getUser((String) usernamePasswordAuthenticationToken.getPrincipal());
-        Double sumPrice = user.orderBookSumPrice();
-        System.out.println("sum price : " + sumPrice);
-        Map<String, String> resp = new HashMap<>();
-        resp.put("name", user.getName());
-        resp.put("surname", user.getSurname());
-        resp.put("date_of_birth", new SimpleDateFormat("dd/MM/yyyy").format(user.getDateOfBirth()));
-
         List books = user.getDataBooks().stream().map(x -> x.getId()).collect(Collectors.toList());
-        log.info(String.valueOf(books));
+        Map resp = user.userInfo();
         resp.put("books", books.toString());
         return ResponseEntity.ok().body(resp);
     }
 
     @PostMapping("/users")
-    public ResponseEntity<User> addUser(@RequestBody User user) {
-        return ResponseEntity.ok().body(userService.saveUser(user));
+    public ResponseEntity<Map> addUser(@RequestBody User user) {
+        log.info(String.valueOf(user));
+        userService.saveUser(user);
+        return ResponseEntity.ok().body(user.userInfo());
     }
 
     @DeleteMapping("/users")
