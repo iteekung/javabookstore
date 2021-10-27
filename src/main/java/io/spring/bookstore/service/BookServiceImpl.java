@@ -14,6 +14,11 @@ public class BookServiceImpl implements BookService{
     private final BookRepo bookRepo;
 
     @Override
+    public Book getBook(Integer id) {
+        return bookRepo.getById(id);
+    }
+
+    @Override
     public List<Book> getBooks() {
         return bookRepo.findAllByOrderByIsRecommendedDesc();
     }
