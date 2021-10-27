@@ -32,4 +32,8 @@ public class User {
 //        this.setPassword(password);
 //        this.setDateOfBirth(date);
 //    }
+
+    public Double orderBookSumPrice() {
+        return this.getDataBooks().stream().map(x -> x.getPrice()).reduce(0.0, (a, b) -> a + b);
+    }
 }

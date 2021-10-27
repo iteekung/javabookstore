@@ -23,7 +23,7 @@ public class UserController {
     @GetMapping("/users/{id}")
     public ResponseEntity<User> getUser(@PathVariable("id") Integer id) {
         User user = userService.getUser(id);
-        Double sumPrice = user.getDataBooks().stream().map(x -> x.getPrice()).reduce(0.0, (a, b) -> a + b);
+        Double sumPrice = user.orderBookSumPrice();
         System.out.println("sum price : " + sumPrice);
         return ResponseEntity.ok().body(userService.getUser(id));
     }
@@ -45,7 +45,7 @@ public class UserController {
         System.out.println("payload " + payload);
         User user = userService.getUser(1);
         Map<String, Double> sumPrice = new HashMap<>();
-        sumPrice.put("price", user.getDataBooks().stream().map(x -> x.getPrice()).reduce(0.0, (a, b) -> a + b));
+        sumPrice.put("price", user.orderBookSumPrice());
         return ResponseEntity.ok().body(sumPrice);
     }
 }
