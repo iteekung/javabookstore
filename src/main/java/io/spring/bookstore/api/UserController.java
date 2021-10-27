@@ -1,9 +1,7 @@
 package io.spring.bookstore.api;
 
-import io.spring.bookstore.domain.Book;
 import io.spring.bookstore.domain.User;
 import io.spring.bookstore.service.UserService;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +10,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,6 +26,14 @@ public class UserController {
         User user = userService.getUser((String) usernamePasswordAuthenticationToken.getPrincipal());
         Double sumPrice = user.orderBookSumPrice();
         System.out.println("sum price : " + sumPrice);
+        Map<String, String> resp = new HashMap<>();
+        resp.put("name", user.getName());
+        resp.put("surname", user.getSurname());
+        resp.put("date_of_birth", new SimpleDateFormat("dd/MM/yyyy").format(user.getDateOfBirth()));
+
+        List books = user.getDataBooks().stream().map(x -> x.getId()).collect(Collectors.toList());
+        log.info(String.valueOf(books));
+        resp.put("books", books.toString());
         return ResponseEntity.ok().body(resp);
     }
 
